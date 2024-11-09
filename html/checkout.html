@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>checkOut</title>
+</head>
+<body>
+    <header>
+        <div class="header-wrapper">
+            <h2>WALLINK</h2>
+            <h1>Shipping Information</h1>
+        </div>
+    </header>
+    <div class="container">
+        <div class="content">
+            <!-- <div class="order-grid">
+                <div class="order-item">
+                    <img src="../img/sampImg.png" alt="item" class="item-img">
+                    <div class="item-info">
+                        <h3 class="item-name" title="Ice cream tub">Ice cream tub</h3>
+                        <h2 class="item-price">PHP 100</h2>
+                        <p id="inStocks">In stocks: 69</p>
+                    </div>
+                </div>
+
+                <div class="order-item">
+                    <img src="../img/sampImg.png" alt="item" class="item-img">
+                    <div class="item-info">
+                        <h3 class="item-name" title="Ice cream tub">Ice cream tub</h3>
+                        <h2 class="item-price">PHP 100</h2>
+                        <p id="inStocks">In stocks: 69</p>
+                    </div>
+                </div>
+
+                <div class="order-item">
+                    <img src="../img/sampImg.png" alt="item" class="item-img">
+                    <div class="item-info">
+                        <h3 class="item-name" title="Ice cream tub">Ice cream tub</h3>
+                        <h2 class="item-price">PHP 100</h2>
+                        <p id="inStocks">In stocks: 69</p>
+                    </div>
+                </div>
+
+                <div class="order-item">
+                    <img src="../img/sampImg.png" alt="item" class="item-img">
+                    <div class="item-info">
+                        <h3 class="item-name" title="Ice cream tub">Ice cream tub</h3>
+                        <h2 class="item-price">PHP 100</h2>
+                        <p id="inStocks">In stocks: 69</p>
+                    </div>
+                </div>
+            </div> -->
+
+            <form method="POST">
+                <!-- name -->
+                <div class="name-box">
+                    <label for="name">Full Name</label><br>
+                    <input type="text" name="name" placeholder="Name" required>
+                </div>
+
+                <!-- contact number TEMP -->
+                <div class="contact-box">
+                    <label for="contact">Contact Number</label><br>
+                    <input type="text" name="contact" placeholder="Contact Number" required>
+                </div>
+                
+
+                <!-- email (optional) -->
+                <div class="email-box">
+                    <label for="email">Email</label><br>
+                    <input type="email" name="email" placeholder="Email">
+                </div>
+                
+                <!-- location -->
+                <div class="cascading-location-dropdown">
+                    <label for="country">Country</label><br>
+                    <select id="country" onchange="updateProvinces()" required>
+                      <option value="">Select Country</option>
+                      <option value="Philippines">Philippines</option>
+                    </select>
+                  
+                    <label for="province">Province</label><br>
+                    <select id="province" onchange="updateCities()" required>
+                      <option value="">Select Province</option>
+                    </select>
+                  
+                    <label for="city">City</label><br>
+                    <select id="city" required>
+                      <option value="">Select City</option>
+                    </select>
+                </div>
+
+                <!-- delivery note -->
+                <div class="delivery-note-box">
+                    <label for="deliveryNote">Delivery Note</label><br>
+                    <input type="text" name="deliveryNote" placeholder="Delivery Note">
+                </div>
+
+                <!-- payment method -->
+                <div class="payment-dropdown">
+                    <label for="paymentMethod">Payment Method</label><br>
+                    <select name="paymentMethod" required>
+                        <option value="cod">Cash on Delivery</option>
+                        <option value="gcash">GCash</option>
+                    </select>
+                </div>
+
+                
+                <!-- pickup / deliver -->
+                <div class="delivery-option-dropdown">
+                    <label for="deliveryOption">Pickup or Deliver</label><br>
+                    <select name="deliveryOption" required>
+                        <option value="pickup">Pickup</option>
+                        <option value="deliver">Deliver</option>
+                    </select>
+                </div>
+
+
+                <!-- pickup / deliver DATE AND TIME -->
+                <div class="dateTime">
+                    <div class="date-box">
+                        <label for="date">Date</label><br>
+                        <input type="date" name="date" required>
+                        <p id="dateErrorText"></p>
+                    </div>
+                    <div class="time-box">
+                        <label for="time">Time</label><br>
+                        <input type="time" name="time" required>
+                        <p id="timeErrorText"></p>
+                    </div>
+                </div>
+
+                <button type="submit" id="submitButton">Checkout</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="../js/checkout.js"></script>
+</body>
+</html>
