@@ -1,72 +1,170 @@
-const locationData = {
-    Philippines: {
-        Bulacan: ["Malolos", "Meycauayan", "San Jose del Monte", "Santa Maria"],
-        Pampanga: ["Angeles", "San Fernando", "Mabalacat", "Guagua"]
-    }
-}
+import { addError } from "./ADDERROR.js";
 
-function updateProvinces() {
-    const countrySelect = document.getElementById("country");
-    const provinceSelect = document.getElementById("province");
-    const citySelect = document.getElementById("city");
-    const selectedCountry = countrySelect.value;
-
-    provinceSelect.innerHTML = '<option value="">Select Province</option>';
-    citySelect.innerHTML = '<option value="">Select City</option>';
-
-    if (selectedCountry === "Philippines" && locationData[selectedCountry]) {
-        Object.keys(locationData[selectedCountry]).forEach(province => {
-            const option = document.createElement("option");
-            option.value = province;
-            option.textContent = province;
-            provinceSelect.appendChild(option);
-        });
-    }
-}
-
-function updateCities() {
-    const countrySelect = document.getElementById("country");
-    const provinceSelect = document.getElementById("province");
-    const citySelect = document.getElementById("city");
-    const selectedCountry = countrySelect.value;
-    const selectedProvince = provinceSelect.value;
-
-    citySelect.innerHTML = '<option value="">Select City</option>';
-
-    if (selectedCountry && selectedProvince && locationData[selectedCountry][selectedProvince]) {
-        locationData[selectedCountry][selectedProvince].forEach(city => {
-        const option = document.createElement("option");
-        option.value = city;
-        option.textContent = city;
-        citySelect.appendChild(option);
-    });
-  }
-}
+const cart = JSON.parse(localStorage.getItem('cartItems')) || [];
 
 function defaultValues() {
-    const countrySelect = document.getElementById("countryDropdown");
-    const provinceSelect = document.getElementById("provinceDropdown");
-    const citySelect = document.getElementById("cityDropdown");
-    const paymentMethodSelect = document.getElementById("paymentMethodDropdown");
-    const deliveryOptionSelect = document.getElementById("deliveryOptionDropdown");
+    //  the hell is this
+    const name = document.getElementById("nameInput");
+    const contact = document.getElementById("contactInput");
+    const email = document.getElementById("emailInput");
+    const country = document.getElementById("countryDropdown");
+    const province = document.getElementById("provinceDropdown");
+    const city = document.getElementById("cityDropdown");
+    const address = document.getElementById("addressInput");
+    const paymentMethod = document.getElementById("paymentMethodDropdown");
+    const deliveryOption = document.getElementById("deliveryOptionDropdown");
+    const date = document.getElementById("dateInput");
+    const time = document.getElementById("timeInput");
     
-    countrySelect.selectedIndex = 0;
-    provinceSelect.selectedIndex = 0;
-    citySelect.selectedIndex = 0;
-    paymentMethodSelect.selectedIndex = 0;
-    deliveryOptionSelect.selectedIndex = 0;
+    name.value = "";
+    contact.value = "";
+    country.selectedIndex = 0;
+    province.selectedIndex = 0;
+    city.selectedIndex = 0;
+    address.value = "";
+    paymentMethod.selectedIndex = 0;
+    deliveryOption.selectedIndex = 0;
+
+    const today = new Date();
+    const tomorrow = new Date(today);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    const day = tomorrow.getDate();
+    const month = tomorrow.getMonth() + 1;
+    const year = tomorrow.getFullYear();
+    const formattedDate = `${year}-${month < 10 ? '0' : ''}${month}-${day < 10 ? '0' : ''}${day}`;
+    date.value = formattedDate;
+    time.value = "12:00";
+
+    date.min = formattedDate;
+    localStorage.setItem('minDate', formattedDate);
 }
 
 function submitButtonListener() {
     const submitButton = document.getElementById("submitButton");
     const paymentMethodSelect = document.getElementById("paymentMethodDropdown");
-    submitButton.addEventListener("click", () => {
-        if (paymentMethodSelect.value === "gcash") window.location.href = "checkoutGcashQR.html";
-        else window.location.href = "checkoutPending.html";
+    submitButton.addEventListener("click", (e) => {
+        e.preventDefault();
+
+        const name = document.getElementById("nameInput").value.trim() || "";
+        const contact = document.getElementById("contactInput").value.trim() || "";
+        const country = document.getElementById("countryDropdown").value || "";
+        const province = document.getElementById("provinceDropdown").value || "";
+        const city = document.getElementById("cityDropdown").value || "";
+        const address = document.getElementById("addressInput").value.trim() || "";
+        const paymentMethod = document.getElementById("paymentMethodDropdown").value || "";
+        const deliveryOption = document.getElementById("deliveryOptionDropdown").value || "";
+        const date = document.getElementById("dateInput").value;
+        const time = document.getElementById("timeInput").value;
+
+        if (!name) addError(document.getElementById("nameInput"));
+        if (!contact) addError(document.getElementById("contactInput"));
+        if (!country) addError(document.getElementById("countryDropdown"));
+        if (!province) addError(document.getElementById("provinceDropdown"));
+        if (!city) addError(document.getElementById("cityDropdown"));
+        if (!address) addError(document.getElementById("addressInput"));
+        if (!paymentMethod) addError(document.getElementById("paymentMethodDropdown"));
+        if (!deliveryOption) addError(document.getElementById("deliveryOptionDropdown"));
+        if (!date) addError(document.getElementById("dateInput"));
+        if (date < localStorage.getItem('minDate')) addError(document.getElementById("dateInput"));
+        if (!time) addError(document.getElementById("timeInput"));
+
+        if (!name || !contact || !country || !province || !city || !address || !paymentMethod || !deliveryOption || !date || !time) return;
+
+        // save to local storage        
+        const orderDetailsArray = JSON.parse(localStorage.getItem('pendingOrders')) || [];
+        const length = orderDetailsArray.length;
+        const orderDetails = {
+            orderNumber: length,
+            name: name,
+            contact: contact,
+            country: country,
+            province: province,
+            city: city,
+            address: address,
+            paymentMethod: paymentMethod,
+            deliveryOption: deliveryOption,
+            date: date,
+            time: time,
+            orderItems: cart,
+            status: "pending"
+        };
+        orderDetailsArray.push(orderDetails);
+        localStorage.setItem('pendingOrders', JSON.stringify(orderDetailsArray));
+
+        if (paymentMethodSelect.value === "gcash") window.location.href = "../html/CHECKOUTGCASHQR.html";
+        else window.location.href = "../html/CHECKOUTPENDING.html";
     });
 }
 
+function resetButtonListener() {
+    const resetButton = document.getElementById("resetButton");
+    resetButton.addEventListener("click", (e) => {
+        e.preventDefault();
+        defaultValues();
+    });
+}
+
+function generateOrderItems(numberOfItems, orderDetails) {
+    const orderListContainer = document.querySelector('.order-list-container');
+    orderListContainer.innerHTML = '';
+    let totalPrices = 0;
+
+    for (let i = 0; i < numberOfItems; i++) {
+        const orderItem = document.createElement('div');
+        orderItem.classList.add('order-item');
+
+        orderItem.innerHTML = `
+            <img src="${orderDetails[i].imageSrc}" alt="Product image">
+            <div class="order-item-info">
+                <p class="productName">${orderDetails[i].name}</p>
+                <p class="productPrice">PHP ${orderDetails[i].price}</p>
+                <p class="productQuantity">Quantity: ${orderDetails[i].quantity}</p>
+                <p class="productSubtotal">Subtotal: PHP ${orderDetails[i].subtotal}</p>
+            </div>
+        `;
+        orderListContainer.appendChild(orderItem);
+        totalPrices += orderDetails[i].subtotal;
+    }
+    document.getElementById("totalPrice").innerText = `Total: PHP ${totalPrices}`;
+}
+
+async function fetchOrderItems() {
+    try {
+        const response = await fetch("/api/orders", {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        });
+
+        const data = await response.json();
+        switch (response.status) {
+            case 200:
+                generateOrderItems(data.length, data);
+                break;
+            default:
+                alert("Something went wrong");
+                break;
+        }
+    } catch (error) {
+        console.error("Error:", error);
+    }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
+    // fetchOrderItems();
     submitButtonListener();
+    resetButtonListener();
     defaultValues();
+
+    // Hardcoded order items
+    // const orderDetails = {
+    //     imageSrc: "../../media/sampImg.png",
+    //     name: "Ice Cream",
+    //     price: 100,
+    //     quantity: 1,
+    //     subtotal: 100
+    // };
+
+    generateOrderItems(cart.length, cart);
 });

@@ -1,0 +1,15 @@
+.checkout-pending-list-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+}
+
+.pending-item {
+    display: flex;
+    flex-direction: column;
+
+    margin-bottom: 5px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+}

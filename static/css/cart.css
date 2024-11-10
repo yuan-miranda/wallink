@@ -1,0 +1,36 @@
+.item-buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.saveButton {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+}
+
+.saveButton:hover {
+    background-color: #0056b3;
+}
+
+.removeFromCartButton {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    background-color: #dc3545;
+    color: #fff;
+    cursor: pointer;
+}
+
+.removeFromCartButton:hover {
+    background-color: #c82333;
+}
