@@ -43,13 +43,30 @@ function updateCities() {
   }
 }
 
+function defaultValues() {
+    const countrySelect = document.getElementById("countryDropdown");
+    const provinceSelect = document.getElementById("provinceDropdown");
+    const citySelect = document.getElementById("cityDropdown");
+    const paymentMethodSelect = document.getElementById("paymentMethodDropdown");
+    const deliveryOptionSelect = document.getElementById("deliveryOptionDropdown");
+    
+    countrySelect.selectedIndex = 0;
+    provinceSelect.selectedIndex = 0;
+    citySelect.selectedIndex = 0;
+    paymentMethodSelect.selectedIndex = 0;
+    deliveryOptionSelect.selectedIndex = 0;
+}
+
 function submitButtonListener() {
     const submitButton = document.getElementById("submitButton");
+    const paymentMethodSelect = document.getElementById("paymentMethodDropdown");
     submitButton.addEventListener("click", () => {
-        window.location.href = "checkout-gcash-qr.html";
+        if (paymentMethodSelect.value === "gcash") window.location.href = "checkoutGcashQR.html";
+        else window.location.href = "checkoutPending.html";
     });
 }
 
 document.addEventListener('DOMContentLoaded', () => {
     submitButtonListener();
+    defaultValues();
 });
