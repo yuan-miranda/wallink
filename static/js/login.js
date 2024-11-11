@@ -2,15 +2,16 @@ function submitButtonListener() {
     const submitButton = document.getElementById("submitButton");
     submitButton.addEventListener("click", async (e) => {
         e.preventDefault();
-        const username = document.getElementById("email").value;
+        const username = document.getElementById("username").value;
+        const email = document.getElementById("email").value;
         const password = document.getElementById("password").value;
-        console.log(username, password);
+        console.log(email, password);
 
         // try {
         //     const response = await fetch("/login", {
         //         method: "POST",
         //         body: JSON.stringify({
-        //             username: username,
+        //             email: email,
         //             password: password
         //         }),
         //         headers: {
@@ -33,6 +34,13 @@ function submitButtonListener() {
         // } catch (error) {
         //     console.error("Error:", error);
         // }
+
+        // save credentials
+        // HARD CODED
+        localStorage.setItem("username", username);
+        localStorage.setItem("email", email);
+        localStorage.setItem("password", password);
+
         window.location.href = "../html/welcome.html";
     });
 }

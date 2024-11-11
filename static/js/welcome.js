@@ -4,6 +4,14 @@ function storeButtonListener() {
         window.location.href = "../html/store.html";
     });
 }
+
+function greetUser() {
+    const username = localStorage.getItem("username");
+    if (!username) document.getElementById("promptText").innerText = "Welcome!";
+    else document.getElementById("promptText").innerText = `Welcome, ${username}!`;
+}
+
 document.addEventListener("DOMContentLoaded", () => {
     storeButtonListener();
+    greetUser();
 });

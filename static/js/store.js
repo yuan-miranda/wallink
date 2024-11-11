@@ -100,6 +100,13 @@ function viewCartButtonListener() {
     });
 }
 
+function pendingOrdersListener() {
+    const pendingOrdersButton = document.getElementById("pendingOrdersButton");
+    pendingOrdersButton.addEventListener("click", () => {
+        window.location.href = "../html/CHECKOUTPENDING.html";
+    });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     // HARD CODED DATA FOR TESTING
     const productDetails = [
@@ -170,5 +177,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     checkoutButtonListener();
     viewCartButtonListener();
+    pendingOrdersListener();
     // localStorage.removeItem('cartItems');
 });

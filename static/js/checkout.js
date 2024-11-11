@@ -47,10 +47,12 @@ function submitButtonListener() {
 
         const name = document.getElementById("nameInput").value.trim() || "";
         const contact = document.getElementById("contactInput").value.trim() || "";
+        const email = document.getElementById("emailInput").value.trim() || "";
         const country = document.getElementById("countryDropdown").value || "";
         const province = document.getElementById("provinceDropdown").value || "";
         const city = document.getElementById("cityDropdown").value || "";
         const address = document.getElementById("addressInput").value.trim() || "";
+        const deliveryNote = document.getElementById("deliveryNoteInput").value.trim() || "";
         const paymentMethod = document.getElementById("paymentMethodDropdown").value || "";
         const deliveryOption = document.getElementById("deliveryOptionDropdown").value || "";
         const date = document.getElementById("dateInput").value;
@@ -70,17 +72,19 @@ function submitButtonListener() {
 
         if (!name || !contact || !country || !province || !city || !address || !paymentMethod || !deliveryOption || !date || !time) return;
 
-        // save to local storage        
+        // save to local storage
         const orderDetailsArray = JSON.parse(localStorage.getItem('pendingOrders')) || [];
         const length = orderDetailsArray.length;
         const orderDetails = {
             orderNumber: length,
             name: name,
             contact: contact,
+            email: email,
             country: country,
             province: province,
             city: city,
             address: address,
+            deliveryNote: deliveryNote,
             paymentMethod: paymentMethod,
             deliveryOption: deliveryOption,
             date: date,
@@ -88,11 +92,12 @@ function submitButtonListener() {
             orderItems: cart,
             status: "pending"
         };
+
         orderDetailsArray.push(orderDetails);
         localStorage.setItem('pendingOrders', JSON.stringify(orderDetailsArray));
 
         if (paymentMethodSelect.value === "gcash") window.location.href = "../html/CHECKOUTGCASHQR.html";
-        else window.location.href = "../html/CHECKOUTPENDING.html";
+        else window.location.href = "../html/CHECKOUTCOD.html";
     });
 }
 
@@ -126,6 +131,9 @@ function generateOrderItems(numberOfItems, orderDetails) {
         totalPrices += orderDetails[i].subtotal;
     }
     document.getElementById("totalPrice").innerText = `Total: PHP ${totalPrices}`;
+
+    //  save total price to local storage
+    localStorage.setItem('totalPrice', totalPrices);
 }
 
 async function fetchOrderItems() {

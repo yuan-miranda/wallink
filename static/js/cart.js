@@ -83,6 +83,13 @@ function checkoutButtonListener() {
     });
 }
 
+function pendingOrdersListener() {
+    const pendingOrdersButton = document.getElementById("pendingOrdersButton");
+    pendingOrdersButton.addEventListener("click", () => {
+        window.location.href = "../html/CHECKOUTPENDING.html";
+    });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     if (cart.length === 0) {
         const gridContainer = document.querySelector('.grid-container');
@@ -99,4 +106,5 @@ document.addEventListener('DOMContentLoaded', () => {
         generateGridItems(cart.length, cart);
     }
     checkoutButtonListener();
+    pendingOrdersListener();
 });
