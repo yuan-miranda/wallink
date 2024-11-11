@@ -54,7 +54,22 @@ function pendingOrdersListener() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    generatePendingOrders(orderDetailsArray.length, orderDetailsArray);
+    console.log(orderDetailsArray)
+    if (orderDetailsArray.length === 0) {
+        const pendingListContainer = document.querySelector('.checkout-pending-list-container');
+        pendingListContainer.style.display = 'none';
+
+        const status = document.getElementById('status1');
+        status.innerHTML = 'No pending orders';
+        status.style.display = 'flex';
+        status.style.justifyContent = 'center';
+        status.style.alignItems = 'center';
+        status.style.height = '100vh';
+        status.style.color = '#666';
+        console.log('No pending orders');
+    } else {
+        generatePendingOrders(orderDetailsArray.length, orderDetailsArray);
+    }
     homeButtonListener();
     viewCartButtonListener();
     pendingOrdersListener();
