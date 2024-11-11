@@ -1,11 +1,3 @@
-.content-override {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-}
-
 /* Container for the file input */
 .file-input-container {
     display: flex;
