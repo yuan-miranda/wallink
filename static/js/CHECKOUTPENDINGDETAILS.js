@@ -92,3 +92,24 @@ document.addEventListener('DOMContentLoaded', () => {
     generateOrderItems(correctSelectedOrder.length, correctSelectedOrder);
     loadFormValues();
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// DB SECTION

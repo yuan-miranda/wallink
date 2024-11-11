@@ -1,3 +1,5 @@
+import { openDatabase, addData, getData, updateData, deleteData } from './DB.js';
+
 function submitButtonListener() {
     const submitButton = document.getElementById("submitButton");
     submitButton.addEventListener("click", async (e) => {
@@ -48,3 +50,24 @@ function submitButtonListener() {
 document.addEventListener("DOMContentLoaded", () => {
     submitButtonListener();
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// DB SECTION

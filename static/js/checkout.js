@@ -1,3 +1,4 @@
+import { openDatabase, addData, getData, updateData, deleteData } from './DB.js';
 import { addError } from "./ADDERROR.js";
 
 const cart = JSON.parse(localStorage.getItem('cartItems')) || [];
@@ -164,15 +165,26 @@ document.addEventListener('DOMContentLoaded', () => {
     submitButtonListener();
     resetButtonListener();
     defaultValues();
-
-    // Hardcoded order items
-    // const orderDetails = {
-    //     imageSrc: "../../media/sampImg.png",
-    //     name: "Ice Cream",
-    //     price: 100,
-    //     quantity: 1,
-    //     subtotal: 100
-    // };
-
     generateOrderItems(cart.length, cart);
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// DB SECTION

@@ -1,3 +1,5 @@
+import { openDatabase, addData, getData, updateData, deleteData } from './DB.js';
+
 function nextButtonListener() {
     const nextButton = document.getElementById("nextButton");
     nextButton.addEventListener("click", () => {
@@ -15,3 +17,24 @@ document.addEventListener("DOMContentLoaded", () => {
     nextButtonListener();
     setPriceAmount();
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// DB SECTION

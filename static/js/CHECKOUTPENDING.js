@@ -1,3 +1,5 @@
+import { openDatabase, addData, getData, updateData, deleteData } from './DB.js';
+
 const orderDetailsArray = JSON.parse(localStorage.getItem('pendingOrders')) || [];
 
 function generatePendingOrders(numberOfOrders, orderDetails) {
@@ -53,8 +55,7 @@ function pendingOrdersListener() {
     });
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    console.log(orderDetailsArray)
+function initOrders() {
     if (orderDetailsArray.length === 0) {
         const pendingListContainer = document.querySelector('.checkout-pending-list-container');
         pendingListContainer.style.display = 'none';
@@ -70,7 +71,32 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
         generatePendingOrders(orderDetailsArray.length, orderDetailsArray);
     }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    initOrders();
     homeButtonListener();
     viewCartButtonListener();
     pendingOrdersListener();
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// DB SECTION

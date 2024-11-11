@@ -1,4 +1,78 @@
+import { openDatabase, addData, getData, updateData, deleteData } from './DB.js';
+
 const cart = JSON.parse(localStorage.getItem('cartItems')) || [];
+// HARD CODED DATA FOR TESTING
+// ADD DESCRIPTION AND PRICING LATER
+const productDetails = [
+    {
+        name: "Vanilla",
+        price: 435,
+        stock: 15,
+        imageSrc: "../../media/ice-creams/Vanilla_ice_cream.png"
+    },
+    {
+        name: "Chocolate",
+        price: 362,
+        stock: 8,
+        imageSrc: "../../media/ice-creams/Chocolate_ice_cream.png"
+    },
+    {
+        name: "Strawberry",
+        price: 489,
+        stock: 3,
+        imageSrc: "../../media/ice-creams/Strawberry_ice_cream.png"
+    },
+    {
+        name: "Mint Chocolate Chip",
+        price: 375,
+        stock: 12,
+        imageSrc: "../../media/ice-creams/Mint_Chocolate_Chip_ice_cream.png"
+    },
+    {
+        name: "Cookie Dough",
+        price: 416,
+        stock: 5,
+        imageSrc: "../../media/ice-creams/Cookie_Dough_ice_cream.png"
+    },
+    {
+        name: "Rocky Road",
+        price: 457,
+        stock: 10,
+        imageSrc: "../../media/ice-creams/Rocky_Road_ice_cream.png"
+    },
+    {
+        name: "Pistachio",
+        price: 305,
+        stock: 7,
+        imageSrc: "../../media/ice-creams/Pistachio_ice_cream.png"
+    },
+    {
+        name: "Salted Caramel",
+        price: 329,
+        stock: 20,
+        imageSrc: "../../media/ice-creams/Salted_Caramel_ice_cream.png"
+    },
+    {
+        name: "Mango Sorbet",
+        price: 491,
+        stock: 4,
+        imageSrc: "../../media/ice-creams/Mango_Sorbet_ice_cream.png"
+    },
+    {
+        name: "Butter Pecan",
+        price: 355,
+        stock: 0,
+        imageSrc: "../../media/ice-creams/Butter_Pecan_ice_cream.png"
+    },
+    {
+        name: "Boku No Pico Ice Cream",
+        price: 9999.99,
+        stock: 1,
+        imageSrc: "../../media/ice-creams/Boku_No_Pico_Ice_Cream.jpg"
+
+    }
+];
+    
 
 function generateGridItems(numberOfItems, productDetails) {
     const gridContainer = document.querySelector('.grid-container');
@@ -108,84 +182,31 @@ function pendingOrdersListener() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    // HARD CODED DATA FOR TESTING
-    // ADD DESCRIPTION AND PRICING LATER
-    const productDetails = [
-        {
-            name: "Vanilla",
-            price: 435,
-            stock: 15,
-            imageSrc: "../../media/ice-creams/Vanilla_ice_cream.png"
-        },
-        {
-            name: "Chocolate",
-            price: 362,
-            stock: 8,
-            imageSrc: "../../media/ice-creams/Chocolate_ice_cream.png"
-        },
-        {
-            name: "Strawberry",
-            price: 489,
-            stock: 3,
-            imageSrc: "../../media/ice-creams/Strawberry_ice_cream.png"
-        },
-        {
-            name: "Mint Chocolate Chip",
-            price: 375,
-            stock: 12,
-            imageSrc: "../../media/ice-creams/Mint_Chocolate_Chip_ice_cream.png"
-        },
-        {
-            name: "Cookie Dough",
-            price: 416,
-            stock: 5,
-            imageSrc: "../../media/ice-creams/Cookie_Dough_ice_cream.png"
-        },
-        {
-            name: "Rocky Road",
-            price: 457,
-            stock: 10,
-            imageSrc: "../../media/ice-creams/Rocky_Road_ice_cream.png"
-        },
-        {
-            name: "Pistachio",
-            price: 305,
-            stock: 7,
-            imageSrc: "../../media/ice-creams/Pistachio_ice_cream.png"
-        },
-        {
-            name: "Salted Caramel",
-            price: 329,
-            stock: 20,
-            imageSrc: "../../media/ice-creams/Salted_Caramel_ice_cream.png"
-        },
-        {
-            name: "Mango Sorbet",
-            price: 491,
-            stock: 4,
-            imageSrc: "../../media/ice-creams/Mango_Sorbet_ice_cream.png"
-        },
-        {
-            name: "Butter Pecan",
-            price: 355,
-            stock: 0,
-            imageSrc: "../../media/ice-creams/Butter_Pecan_ice_cream.png"
-        },
-        {
-            name: "Boku No Pico Ice Cream",
-            price: 9999.99,
-            stock: 1,
-            imageSrc: "../../media/ice-creams/Boku_No_Pico_Ice_Cream.jpg"
-
-        }
-    ];
-    
     generateGridItems(productDetails.length, productDetails);
-
     // fetchGridItems();
-
     checkoutButtonListener();
     viewCartButtonListener();
     pendingOrdersListener();
     // localStorage.removeItem('cartItems');
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// DB SECTION

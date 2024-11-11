@@ -1,5 +1,8 @@
-const cart = JSON.parse(localStorage.getItem('cartItems')) || [];
+import { openDatabase, addData, getData, updateData, deleteData } from './DB.js';
 
+const cart = JSON.parse(localStorage.getItem('cartItems')) || [];
+const dbName = 'cartDB';
+const storeName = 'cartItems';
 
 function generateGridItems(numberOfItems, productDetails) {
     const gridContainer = document.querySelector('.grid-container');
@@ -64,6 +67,23 @@ function addToCart(item) {
     localStorage.setItem('cartItems', JSON.stringify(cart));
 }
 
+function initCart() {
+    if (cart.length === 0) {
+        const gridContainer = document.querySelector('.grid-container');
+        gridContainer.style.display = 'none';
+        
+        const status = document.getElementById('status');
+        status.innerHTML = 'No items in cart';
+        status.style.display = 'flex';
+        status.style.justifyContent = 'center';
+        status.style.alignItems = 'center';
+        status.style.height = '100vh';
+        status.style.color = '#666';
+    } else {
+        generateGridItems(cart.length, cart);
+    }
+}
+
 function removeFromCart(name) {
     const itemIndex = cart.findIndex(cartItem => cartItem.name === name);
     cart.splice(itemIndex, 1);
@@ -98,21 +118,29 @@ function homeButtonListener() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    if (cart.length === 0) {
-        const gridContainer = document.querySelector('.grid-container');
-        gridContainer.style.display = 'none';
-        
-        const status = document.getElementById('status');
-        status.innerHTML = 'No items in cart';
-        status.style.display = 'flex';
-        status.style.justifyContent = 'center';
-        status.style.alignItems = 'center';
-        status.style.height = '100vh';
-        status.style.color = '#666';
-    } else {
-        generateGridItems(cart.length, cart);
-    }
+    initCart();
     checkoutButtonListener();
     pendingOrdersListener();
     homeButtonListener();
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// DB SECTION using IndexedDB
