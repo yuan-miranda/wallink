@@ -90,6 +90,13 @@ function pendingOrdersListener() {
     });
 }
 
+function homeButtonListener() {
+    const checkoutButton = document.getElementById("homeButton");
+    checkoutButton.addEventListener("click", () => {
+        window.location.href = "../html/store.html";
+    });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     if (cart.length === 0) {
         const gridContainer = document.querySelector('.grid-container');
@@ -107,4 +114,5 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     checkoutButtonListener();
     pendingOrdersListener();
+    homeButtonListener();
 });
